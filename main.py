@@ -5,8 +5,14 @@ from Tourist import Tourist
 from Rent import Rent
 from DatabaseManager import DatabaseManager
 
-cursor = DatabaseManager.get_cursor()
-cursor.execute("""SELECT b.BoatId, bt.BoatTypeName, b.Color, b.OwnerId, b.PassengerCount, b.BodyStatus, b.FullFuel, b.PaddleCount, b.PedalStatus 
-                       FROM Boat AS b
-                       INNER JOIN BoatType AS bt ON b.BoatTypeId = bt.BoatTypeId WHERE b.BoatId = ?""", 2)
+id = Tourist.create_new_tourist("شهره", "شهسواری", "09142568739")
+print(id)
 
+id = 1
+name = 'ali'
+values = (id, name)
+cursor.execute("""SELECT * FROM Tourist WHERE TouristId = """ + str(id))
+cursor.execute(f"""SELECT * FROM Tourist WHERE TouristId = {id}""")
+cursor.execute("""SELECT * FROM Tourist WHERE TouristId = ? OR Name = ?""", id, name)
+cursor.execute("""SELECT * FROM Tourist WHERE TouristId = ? OR Name = ?""", values)
+cursor.execute("""SELECT * FROM Tourist WHERE TouristId = ? OR Name = ?""", (id, name))

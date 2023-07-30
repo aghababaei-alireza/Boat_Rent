@@ -18,5 +18,5 @@ class MotorBoat(Boat):
     def create_new_motor_boat(cls, color, owner_id, passenger_count, body_status, full_fuel):
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus)
-                       VALUES (?,?,?,?,?,?,0,1)""")
+                       VALUES (?,?,?,?,?,?,0,1)""", 1, color, owner_id, passenger_count, body_status, full_fuel)
         cursor.commit()

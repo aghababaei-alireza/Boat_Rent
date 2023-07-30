@@ -26,7 +26,7 @@ class Boat(ABC):
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""SELECT b.BoatId, bt.BoatTypeName, b.Color, b.OwnerId, b.PassengerCount, b.BodyStatus, b.FullFuel, b.PaddleCount, b.PedalStatus 
                        FROM Boat AS b
-                       INNER JOIN BoatType AS bt ON Boat.BoatTypeId = BoatType.BoatTypeId WHERE BoatId = ?""", boat_id)
+                       INNER JOIN BoatType AS bt ON b.BoatTypeId = bt.BoatTypeId WHERE BoatId = ?""", boat_id)
         row = cursor.fetchone()
         if not row:
             return None
@@ -50,3 +50,5 @@ class Boat(ABC):
             case "پارویی":
                 from RowBoat import RowBoat
                 return RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count)
+            
+    
