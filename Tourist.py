@@ -19,3 +19,5 @@ class Tourist:
         inserted_id = int(cursor.fetchval())
         cursor.commit()
         return inserted_id
+    
+    # def get_

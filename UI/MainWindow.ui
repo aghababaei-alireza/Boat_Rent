@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1739</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>B Nazanin</family>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>سامانه مدیریت اجاره قایق</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::RightToLeft</enum>
+  </property>
+  <property name="locale">
+   <locale language="Persian" country="Iran"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="lbl_welcome">
+      <property name="font">
+       <font>
+        <family>B Titr</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>به سامانه مدیریت اجاره قایق خوش آمدید</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="hlay_buttons">
+      <item>
+       <widget class="QGroupBox" name="grp_tourists">
+        <property name="title">
+         <string>مدیریت گردشگران</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btn_add_tourist">
+           <property name="text">
+            <string>افزودن گردشگر</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/resources/add_tourist.png</normaloff>:/icons/resources/add_tourist.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_delete_tourist">
+           <property name="text">
+            <string>حذف گردشگر</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/resources/delete_tourist.png</normaloff>:/icons/resources/delete_tourist.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="grp_boats">
+        <property name="title">
+         <string>مدیریت قایق‌ها</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QPushButton" name="btn_add_boat">
+           <property name="text">
+            <string>افزودن قایق</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/resources/add_boat.png</normaloff>:/icons/resources/add_boat.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_delete_boat">
+           <property name="text">
+            <string>حذف قایق</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/icons/resources/delete_boat.png</normaloff>:/icons/resources/delete_boat.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>64</width>
+             <height>64</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="grp_statistics">
+        <property name="title">
+         <string>آمار</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="lbl_boats_count_title">
+           <property name="text">
+            <string>تعداد کل قایق‌ها:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_boats_count">
+           <property name="text">
+            <string>20</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_rented_boats_count_title">
+           <property name="text">
+            <string>تعداد قایق‌های تحت اجاره:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_rented_boats_count">
+           <property name="text">
+            <string>5</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_available_boats_count_title">
+           <property name="text">
+            <string>تعداد قایق‌های تحت اجاره:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_available_boats_count">
+           <property name="text">
+            <string>15</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="hlay_lists">
+      <item>
+       <widget class="QGroupBox" name="grp_available_boats">
+        <property name="title">
+         <string>لیست قایق‌های موجود</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QTableWidget" name="tbl_available_boats">
+           <property name="font">
+            <font>
+             <family>B Nazanin</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="verticalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="horizontalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>کد قایق</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>نوع قایق</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>رنگ</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>کد مالک</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>تعداد سرنشین</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>وضعیت بدنه</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>شرایط دیگر</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>عملیات</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="grp_rented_boats">
+        <property name="title">
+         <string>لیست قایق‌های تحت اجاره</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QTableWidget" name="tbl_rented_boats">
+           <property name="font">
+            <font>
+             <family>B Nazanin</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="verticalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="horizontalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>کد قایق</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>نوع قایق</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>رنگ</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>کد مالک</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>کد گردشگر اجاره‌کننده</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>زمان اجاره</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>عملیات</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

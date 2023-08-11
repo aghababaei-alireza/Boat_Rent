@@ -51,7 +51,7 @@ class Rent:
         duration = (self.return_time - self.rent_time).total_seconds() / 3600
         hours = ceil(duration)
 
-        is_rent = not self.boat.owner_id == self.tourist.tourist_id
+        is_rent = not self.boat.owner_id == self.tourist.tourist_id 
 
         total_price = self.boat.calculate_rent_price(hours, is_rent)
         self.set_owner_share_income(total_price, is_rent)
