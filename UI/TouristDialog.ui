@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TouristDialog</class>
+ <widget class="QDialog" name="TouristDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>499</width>
+    <height>204</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>B Nazanin</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>گردشگر</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::RightToLeft</enum>
+  </property>
+  <property name="locale">
+   <locale language="Persian" country="Iran"/>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetMinAndMaxSize</enum>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QFormLayout" name="flay_tourist_info">
+       <item row="0" column="1">
+        <widget class="QComboBox" name="cmb_tourist_id"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="lbl_tourist_name">
+         <property name="text">
+          <string>نام</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="txt_tourist_name"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lbl_tourist_family">
+         <property name="text">
+          <string>نام خانوادگی</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="txt_tourist_family"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="lbl_tourist_mobile">
+         <property name="text">
+          <string>موبایل</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="txt_tourist_mobile"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbl_tourist_id">
+         <property name="text">
+          <string>کد گردشگر</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="hlay_buttons">
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_add_tourist">
+         <property name="text">
+          <string>ایجاد گردشگر</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_delete_tourist">
+         <property name="text">
+          <string>حذف گردشگر</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_return">
+         <property name="text">
+          <string>بازگشت</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="grp_boats">
+     <property name="title">
+      <string>لیست قایق‌های متعلق به این گردشگر</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QTableWidget" name="tbl_tourist_boats">
+        <property name="font">
+         <font>
+          <family>B Nazanin</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContents</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="verticalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
+        <property name="horizontalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>کد قایق</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>نوع قایق</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="hlay_button_add">
+        <item>
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_new_boat">
+          <property name="text">
+           <string>افزودن قایق برای این مالک</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

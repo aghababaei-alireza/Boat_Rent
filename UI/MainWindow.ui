@@ -13,7 +13,7 @@
   <property name="font">
    <font>
     <family>B Nazanin</family>
-    <pointsize>14</pointsize>
+    <pointsize>12</pointsize>
    </font>
   </property>
   <property name="windowTitle">
@@ -55,10 +55,6 @@
            <property name="text">
             <string>افزودن گردشگر</string>
            </property>
-           <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/resources/add_tourist.png</normaloff>:/icons/resources/add_tourist.png</iconset>
-           </property>
            <property name="iconSize">
             <size>
              <width>64</width>
@@ -71,10 +67,6 @@
           <widget class="QPushButton" name="btn_delete_tourist">
            <property name="text">
             <string>حذف گردشگر</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/resources/delete_tourist.png</normaloff>:/icons/resources/delete_tourist.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -98,10 +90,6 @@
            <property name="text">
             <string>افزودن قایق</string>
            </property>
-           <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/resources/add_boat.png</normaloff>:/icons/resources/add_boat.png</iconset>
-           </property>
            <property name="iconSize">
             <size>
              <width>64</width>
@@ -114,10 +102,6 @@
           <widget class="QPushButton" name="btn_delete_boat">
            <property name="text">
             <string>حذف قایق</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resources.qrc">
-             <normaloff>:/icons/resources/delete_boat.png</normaloff>:/icons/resources/delete_boat.png</iconset>
            </property>
            <property name="iconSize">
             <size>
@@ -137,36 +121,9 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
-          <widget class="QLabel" name="lbl_boats_count_title">
-           <property name="text">
-            <string>تعداد کل قایق‌ها:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lbl_boats_count">
-           <property name="text">
-            <string>20</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
           <widget class="QLabel" name="lbl_rented_boats_count_title">
            <property name="text">
-            <string>تعداد قایق‌های تحت اجاره:</string>
+            <string>تعداد قایق‌های اجاره‌شده:</string>
            </property>
           </widget>
          </item>
@@ -193,7 +150,7 @@
          <item>
           <widget class="QLabel" name="lbl_available_boats_count_title">
            <property name="text">
-            <string>تعداد قایق‌های تحت اجاره:</string>
+            <string>تعداد قایق‌های آزاد:</string>
            </property>
           </widget>
          </item>
@@ -372,8 +329,6 @@
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
