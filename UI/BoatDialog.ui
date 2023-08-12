@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>281</width>
-    <height>336</height>
+    <width>345</width>
+    <height>394</height>
    </rect>
   </property>
   <property name="font">
@@ -38,49 +38,49 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="lbl_boat_color">
        <property name="text">
         <string>رنگ</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="lbl_boat_owner_id">
        <property name="text">
         <string>کد مالک</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="lbl_boat_passenger_count">
        <property name="text">
         <string>تعداد سرنشین</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="lbl_boat_body_status">
        <property name="text">
         <string>وضعیت بدنه</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="lbl_boat_full_fuel">
        <property name="text">
         <string>میزان سوخت</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
+     <item row="7" column="0">
       <widget class="QLabel" name="lbl_boat_pedal_status">
        <property name="text">
         <string>وضعیت پدال</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
+     <item row="8" column="0">
       <widget class="QLabel" name="lbl_boat_paddle_count">
        <property name="text">
         <string>تعداد پارو</string>
@@ -90,13 +90,13 @@
      <item row="0" column="1">
       <widget class="QComboBox" name="cmb_boat_id"/>
      </item>
-     <item row="1" column="1">
+     <item row="2" column="1">
       <widget class="QLineEdit" name="txt_color"/>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <widget class="QLineEdit" name="txt_owner_id"/>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QSpinBox" name="spn_passenger_count">
        <property name="minimum">
         <number>1</number>
@@ -106,32 +106,58 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QCheckBox" name="chb_body_status">
        <property name="text">
         <string>سالم</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="6" column="1">
       <widget class="QCheckBox" name="chb_full_fuel">
        <property name="text">
         <string>پر</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
+     <item row="7" column="1">
       <widget class="QCheckBox" name="chb_pedal_status">
        <property name="text">
         <string>سالم</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="8" column="1">
       <widget class="QSpinBox" name="spn_paddle_count">
        <property name="maximum">
         <number>20</number>
        </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lbl_boat_type">
+       <property name="text">
+        <string>نوع قایق</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="cmb_boat_type">
+       <item>
+        <property name="text">
+         <string>موتوری</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>پدالی</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>پارویی</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

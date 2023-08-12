@@ -63,11 +63,13 @@ class Boat(ABC):
                 SELECT B.BoatId FROM Boat AS B 
                 INNER JOIN Rent AS R ON B.BoatId = R.BoatId
                 WHERE R.ReturnTime IS NULL
+                GROUP BY B.BoatId
             ) 
             AND B.BodyStatus = True AND
             ((BT.BoatTypeName = 'موتوری' AND B.FullFuel = True)
             OR (BT.BoatTypeName = 'پدالی' AND B.PedalStatus = True)
             OR (BT.BoatTypeName = 'پارویی' AND B.PaddleCount >= 3))
+            GROUP BY B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PaddleCount, B.PedalStatus
         """)
         boats = []
         for row in cursor:
@@ -92,3 +94,39 @@ class Boat(ABC):
                     from RowBoat import RowBoat
                     boats.append(RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count))
         return boats
+    
+    @classmethod
+    def get_rented_boats(cls) -> list['Boat']:
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""
+            SELECT B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PaddleCount, B.PedalStatus
+            FROM Boat AS B
+            INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId
+            INNER JOIN Rent AS R ON B.BoatId = R.BoatId
+            WHERE R.ReturnTime IS NULL
+        """)
+        boats = []
+        for row in cursor:
+            boat_id = int(row[0])
+            boat_type_name = row[1]
+            color = row[2]
+            owner_id = int(row[3])
+            passenger_count = int(row[4])
+            body_status = bool(row[5])
+            full_fuel = bool(row[6])
+            paddle_count = int(row[7])
+            pedal_status = bool(row[8])
+
+            match boat_type_name:
+                case "موتوری":
+                    from MotorBoat import MotorBoat
+                    boats.append(MotorBoat(boat_id, color, owner_id, passenger_count, body_status, full_fuel))
+                case "پدالی":
+                    from PedalBoat import PedalBoat
+                    boats.append(PedalBoat(boat_id, color, owner_id, passenger_count, body_status, pedal_status))
+                case "پارویی":
+                    from RowBoat import RowBoat
+                    boats.append(RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count))
+        return boats
+    
+    

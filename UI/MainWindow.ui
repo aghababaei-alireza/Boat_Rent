@@ -180,7 +180,64 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="hlay_lists">
+     <layout class="QHBoxLayout" name="hlay_lists" stretch="2,4,4">
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>لیست گردشگران</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QTableWidget" name="tbl_tourists">
+           <property name="font">
+            <font>
+             <family>B Nazanin</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <property name="verticalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <property name="horizontalScrollMode">
+            <enum>QAbstractItemView::ScrollPerPixel</enum>
+           </property>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>کد گردشگر</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>نام</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>نام خانوادگی</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>موبایل</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
       <item>
        <widget class="QGroupBox" name="grp_available_boats">
         <property name="title">
@@ -210,6 +267,11 @@
            <attribute name="verticalHeaderVisible">
             <bool>false</bool>
            </attribute>
+           <column>
+            <property name="text">
+             <string>عملیات</string>
+            </property>
+           </column>
            <column>
             <property name="text">
              <string>کد قایق</string>
@@ -243,11 +305,6 @@
            <column>
             <property name="text">
              <string>شرایط دیگر</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>عملیات</string>
             </property>
            </column>
           </widget>
@@ -286,6 +343,11 @@
            </attribute>
            <column>
             <property name="text">
+             <string>عملیات</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
              <string>کد قایق</string>
             </property>
            </column>
@@ -312,11 +374,6 @@
            <column>
             <property name="text">
              <string>زمان اجاره</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>عملیات</string>
             </property>
            </column>
           </widget>
