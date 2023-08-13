@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>345</width>
+    <width>350</width>
     <height>394</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
   </property>
   <layout class="QVBoxLayout" name="vlay">
    <property name="sizeConstraint">
-    <enum>QLayout::SetMinAndMaxSize</enum>
+    <enum>QLayout::SetFixedSize</enum>
    </property>
    <item>
     <layout class="QFormLayout" name="flay_info">
@@ -185,17 +185,11 @@
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QPushButton" name="btn_edit">
+       <property name="text">
+        <string>ویرایش</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="btn_delete_boat">
@@ -203,19 +197,6 @@
         <string>حذف قایق</string>
        </property>
       </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item>
       <widget class="QPushButton" name="btn_return">

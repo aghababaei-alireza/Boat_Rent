@@ -66,13 +66,13 @@ class Rent:
         cursor.commit()
 
     @classmethod
-    def get_rented_boat_count(cls):
+    def get_rented_boat_count(cls) -> int:
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""SELECT COUNT(*) FROM Rent WHERE ReturnTime IS NULL""")
         return int(cursor.fetchval())
     
     @classmethod
-    def get_rented_boats(cls):
+    def get_rented_boats(cls) -> list['Rent']:
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""SELECT R.RentId, B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PedalStatus, B.PaddleCount, T.TouristId, T.Name, T.Family, T.Mobile, R.RentTime
                         FROM Rent AS R

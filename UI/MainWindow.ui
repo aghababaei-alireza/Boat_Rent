@@ -64,6 +64,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="btn_edit_tourist">
+           <property name="text">
+            <string>ویرایش اطلاعات گردشگر</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="btn_delete_tourist">
            <property name="text">
             <string>حذف گردشگر</string>
@@ -95,6 +102,13 @@
              <width>64</width>
              <height>64</height>
             </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_edit_boat">
+           <property name="text">
+            <string>ویرایش اطلاعات قایق</string>
            </property>
           </widget>
          </item>
@@ -344,6 +358,11 @@
            <column>
             <property name="text">
              <string>عملیات</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>کد اجاره</string>
             </property>
            </column>
            <column>

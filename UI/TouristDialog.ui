@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>499</width>
+    <width>484</width>
     <height>204</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="sizeConstraint">
-    <enum>QLayout::SetMinAndMaxSize</enum>
+    <enum>QLayout::SetFixedSize</enum>
    </property>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -98,37 +98,11 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btn_delete_tourist">
+        <widget class="QPushButton" name="btn_edit">
          <property name="text">
-          <string>حذف گردشگر</string>
+          <string>ویرایش</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="btn_return">

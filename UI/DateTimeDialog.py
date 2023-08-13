@@ -1,6 +1,7 @@
 from UI.Ui_DateTimeDialog import Ui_DateTimeDialog
 from PyQt5.QtWidgets import QDialog
 from datetime import datetime
+from UI.MessageDialog import MessageDialog
 
 class DateTimeDialog(Ui_DateTimeDialog, QDialog):
     def __init__(self, parent) -> None:
@@ -29,6 +30,7 @@ class DateTimeDialog(Ui_DateTimeDialog, QDialog):
             self.datetime = datetime(year, month, day, hour, minute)
             self.accept()
         except:
+            MessageDialog(self, "تاریخ انتخاب شده نادرست است.").exec()
             return
 
     def exec(self):

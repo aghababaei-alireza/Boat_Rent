@@ -1,6 +1,9 @@
 from UI.Ui_MainWindow import Ui_MainWindow
 from UI.Ui_TouristDialog import Ui_TouristDialog
 from UI.Ui_BoatDialog import Ui_BoatDialog
+from UI.DateTimeDialog import DateTimeDialog
+from UI.MessageDialog import MessageDialog
+from UI.TouristDialog import TouristDialog
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QPushButton
 from Boat import Boat
 from MotorBoat import MotorBoat
@@ -8,11 +11,18 @@ from PedalBoat import PedalBoat
 from RowBoat import RowBoat
 from Rent import Rent
 from Tourist import Tourist
+from UI.BoatDialog import BoatDialog
 
 class MainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.setupUi(self)
+        # self.update()
+        self.btn_add_tourist.clicked.connect(self.btn_add_tourist_clicked)
+        self.btn_edit_tourist.clicked.connect(self.btn_edit_tourist_clicked)
+        self.btn_add_boat.clicked.connect(self.btn_add_boat_clicked)
+        self.btn_edit_boat.clicked.connect(self.btn_edit_boat_clicked)
+        self.btn_delete_boat.clicked.connect(self.btn_delete_boat_clicked)
         
     def update_available_boats(self):
         self.available_boats = Boat.get_available_boats()
@@ -25,6 +35,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         for i in range(len(self.available_boats)):
             boat = self.available_boats[i]
             self.tbl_available_boats.insertRow(i)
+
             self.tbl_available_boats.setItem(i, 1, QTableWidgetItem(str(boat.boat_id))) # Boat Id
             if isinstance(boat, MotorBoat):
                 self.tbl_available_boats.setItem(i, 2, QTableWidgetItem('موتوری')) # Boat Type
@@ -40,14 +51,87 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             self.tbl_available_boats.setItem(i, 5, QTableWidgetItem(str(boat.passenger_count))) # Passenger Count
             self.tbl_available_boats.setItem(i, 6, QTableWidgetItem('سالم' if boat.body_status else 'آسیب‌دیده')) # Body Status
             
-            self.tbl_available_boats.setItem(i, 0, QTableWidgetItem()) # Function
+            self.tbl_available_boats.setCellWidget(i, 0, self.create_rent_button(boat)) # Function
 
     def create_rent_button(self, boat: Boat):
         btn = QPushButton("اجاره")
+        btn.clicked.connect(lambda: self.btn_rent_clicked(boat))
+        return btn
 
     def btn_rent_clicked(self, boat: Boat):
         if len(self.tbl_tourists.selectedItems()) == 0:
-            return # TODO Show Error to select tourist
+            MessageDialog(self, "ابتدا گردشگر اجاره‌کننده را از جدول گردشگران انتخاب کنید.").exec()
+            return
         selected_row = self.tbl_tourists.selectedItems()[0].row()
         tourist_id = int(self.tbl_tourists.item(selected_row, 0))
-        rent = Rent(boat=boat, tourist=Tourist(tourist_id), rent_time=None)
+
+        dlg_datetime = DateTimeDialog(self)
+        (res, dt) = dlg_datetime.exec()
+        if res == dlg_datetime.Rejected:
+            return
+        rent = Rent(boat=boat, tourist=Tourist(tourist_id))
+        rent.start_rent(dt)
+        MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} اجاره شد.").exec()
+        self.update()
+
+    def update_rented_boats(self):
+        self.rent_items = Rent.get_rented_boats()
+        self.lbl_rented_boats_count.setText(str(len(self.rent_items)))
+
+        # Clear the table
+        self.tbl_rented_boats.setRowCount(0)
+
+        # Fill the table
+        for i in range(len(self.rent_items)):
+            rent = self.rent_items[i]
+            self.tbl_rented_boats.insertRow(i)
+
+            self.tbl_rented_boats.setItem(i, 1, QTableWidgetItem(str(rent.rent_id))) # rent Id
+            self.tbl_rented_boats.setItem(i, 2, QTableWidgetItem(str(rent.boat.boat_id))) # Boat Id
+
+            if isinstance(rent.boat, MotorBoat):
+                self.tbl_available_boats.setItem(i, 3, QTableWidgetItem('موتوری')) # Boat Type
+            elif isinstance(rent.boat, PedalBoat):
+                self.tbl_available_boats.setItem(i, 3, QTableWidgetItem('پدالی')) # Boat Type
+            elif isinstance(rent.boat, RowBoat):
+                self.tbl_available_boats.setItem(i, 3, QTableWidgetItem('پارویی')) # Boat Type
+
+            self.tbl_rented_boats.setItem(i, 4, QTableWidgetItem(rent.boat.color)) # Boat Color
+            self.tbl_rented_boats.setItem(i, 5, QTableWidgetItem(str(rent.boat.owner_id))) # Owner Id
+            self.tbl_rented_boats.setItem(i, 6, QTableWidgetItem(str(rent.tourist.tourist_id))) # Tourist Id
+            self.tbl_rented_boats.setItem(i, 7, QTableWidgetItem(rent.rent_time.isoformat())) # Rent Time
+            
+            self.tbl_rented_boats.setCellWidget(i, 0, self.create_return_button()) # Function
+
+    def create_return_button(self, rent: Rent):
+        btn = QPushButton("بازگرداندن")
+        btn.clicked.connect(lambda: self.btn_return_boat_clicked(rent))
+        return btn
+    
+    def btn_return_boat_clicked(self, rent: Rent):
+        dlg_datetime = DateTimeDialog(self)
+        (res, dt) = dlg_datetime.exec()
+        if res == dlg_datetime.Rejected:
+            return
+        rent.finish_rent(dt)
+        MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} بازگردانده شد.").exec()
+        self.update()
+
+    def update(self):
+        self.update_available_boats()
+        self.update_rented_boats()
+
+    def btn_add_tourist_clicked(self):
+        TouristDialog(self).exec()
+
+    def btn_edit_tourist_clicked(self):
+        TouristDialog(self, True).exec()
+
+    def btn_add_boat_clicked(self):
+        BoatDialog(self, 'create').exec()
+
+    def btn_edit_boat_clicked(self):
+        BoatDialog(self, 'edit').exec()
+
+    def btn_delete_boat_clicked(self):
+        BoatDialog(self, 'delete').exec()
