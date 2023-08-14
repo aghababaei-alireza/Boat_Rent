@@ -18,5 +18,17 @@ class PedalBoat(Boat):
     def create_new_pedal_boat(cls, color, owner_id, passenger_count, body_status, pedal_status):
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus)
+                       OUTPUT INSERTED.BoatId
                        VALUES (?,?,?,?,?,1,0,?)""", 2, color, owner_id, passenger_count, body_status, pedal_status)
+        boat_id = int(cursor.fetchval())
+        cursor.commit()
+        return boat_id
+    
+    @classmethod
+    def edit_pedal_boat(cls, boat_id, color, owner_id, passenger_count, body_status, pedal_status):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""UPDATE Boat SET
+                       BoatTypeId = 2, Color = ?, OwnerId = ?, PassengerCount = ?, BodyStatus = ?, FullFuel = 1, PaddleCount = 0, PedalStatus = ?
+                       WHERE BoatId = ?""",
+                       color, owner_id, passenger_count, body_status, pedal_status, boat_id)
         cursor.commit()
