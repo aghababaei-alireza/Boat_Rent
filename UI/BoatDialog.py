@@ -1,5 +1,5 @@
 from UI.Ui_BoatDialog import Ui_BoatDialog
-from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QDialog, QWidget
 from typing import Literal
 from MotorBoat import MotorBoat
 from PedalBoat import PedalBoat
@@ -16,9 +16,6 @@ class BoatDialog(Ui_BoatDialog, QDialog):
         self.btn_edit.setVisible(mode == 'edit')
         self.btn_delete_boat.setVisible(mode == 'delete')
         self.cmb_boat_id.setEnabled(mode != 'create')
-        
-        self.cmb_boat_type.currentTextChanged.connect(self.cmb_boat_type_changed)
-        self.cmb_boat_type_changed(self.cmb_boat_type.currentText())
 
         if owner_id is not None:
             self.txt_owner_id.setText(str(owner_id))
@@ -33,7 +30,23 @@ class BoatDialog(Ui_BoatDialog, QDialog):
             self.cmb_boat_id.clear()
             for boat in self.boats:
                 self.cmb_boat_id.addItem(str(boat.boat_id))
-            self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText))
+            self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
+
+        self.cmb_boat_id.currentTextChanged.connect(lambda current_text: self.cmb_boat_id_changed(int(current_text)))
+        self.cmb_boat_id_changed(self.cmb_boat_id.currentText())
+        
+        self.cmb_boat_type.currentTextChanged.connect(self.cmb_boat_type_changed)
+        self.cmb_boat_type_changed(self.cmb_boat_type.currentText())
+
+        if mode == 'delete':
+            self.cmb_boat_type.setEnabled(False)
+            self.txt_color.setEnabled(False)
+            self.txt_owner_id.setEnabled(False)
+            self.spn_passenger_count.setEnabled(False)
+            self.chb_body_status.setEnabled(False)
+            self.chb_full_fuel.setEnabled(False)
+            self.chb_pedal_status.setEnabled(False)
+            self.spn_paddle_count.setEnabled(False)
 
     def cmb_boat_id_changed(self, current_id):
         boat = Boat.get_boat_by_id(current_id)
@@ -68,7 +81,7 @@ class BoatDialog(Ui_BoatDialog, QDialog):
         owner_id = int(self.txt_owner_id.text())
         passenger_count = self.spn_passenger_count.value()
         body_status = self.chb_body_status.isChecked()
-        match self.cmb_boat_type.currentText:
+        match self.cmb_boat_type.currentText():
             case 'موتوری':
                 full_fuel = self.chb_full_fuel.isChecked()
                 boat_id = MotorBoat.create_new_motor_boat(color, owner_id, passenger_count, body_status, full_fuel)

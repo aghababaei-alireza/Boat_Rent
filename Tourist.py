@@ -38,6 +38,19 @@ class Tourist:
         return [int(row[0]) for row in cursor]
     
     @classmethod
+    def get_all_tourists(cls) -> list['Tourist']:
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("SELECT TouristId, Name, Family, Mobile FROM Tourist")
+        tourists = []
+        for row in cursor:
+            tourist_id = int(row[0])
+            name = row[1]
+            family = row[2]
+            mobile = row[3]
+            tourists.append(Tourist(tourist_id, name, family, mobile))
+        return tourists
+    
+    @classmethod
     def get_tourist_by_id(cls, tourist_id) -> 'Tourist':
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""SELECT T.Name, T.Family, T.Mobile, B.BoatId, BT.BoatTypeName

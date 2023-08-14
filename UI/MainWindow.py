@@ -17,7 +17,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.setupUi(self)
-        # self.update()
+        self.update()
         self.btn_add_tourist.clicked.connect(self.btn_add_tourist_clicked)
         self.btn_edit_tourist.clicked.connect(self.btn_edit_tourist_clicked)
         self.btn_add_boat.clicked.connect(self.btn_add_boat_clicked)
@@ -117,15 +117,38 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} بازگردانده شد.").exec()
         self.update()
 
+    def update_tourists(self):
+        self.tourists = Tourist.get_all_tourists()
+        # Clear the table
+        self.tbl_tourists.setRowCount(0)
+        # Fill the table
+        i = 0
+        for tourist in self.tourists:
+            self.tbl_tourists.insertRow(i)
+            self.tbl_tourists.setItem(i, 0, QTableWidgetItem(str(tourist.tourist_id)))
+            self.tbl_tourists.setItem(i, 1, QTableWidgetItem(tourist.name))
+            self.tbl_tourists.setItem(i, 2, QTableWidgetItem(tourist.family))
+            self.tbl_tourists.setItem(i, 3, QTableWidgetItem(tourist.mobile))
+            i += 1
+    
     def update(self):
         self.update_available_boats()
         self.update_rented_boats()
+        self.update_tourists()
 
     def btn_add_tourist_clicked(self):
         TouristDialog(self).exec()
 
     def btn_edit_tourist_clicked(self):
-        TouristDialog(self, True).exec()
+        selected_rows = self.tbl_tourists.selectedItems()
+        if selected_rows:
+            id = int(self.tbl_tourists.item(selected_rows[0].row(), 0).text())
+        else:
+            id = None
+        TouristDialog(self, True, id).exec()
+
+    def btn_delete_tourist_clicked(self):
+        pass
 
     def btn_add_boat_clicked(self):
         BoatDialog(self, 'create').exec()

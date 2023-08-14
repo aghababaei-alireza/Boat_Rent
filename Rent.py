@@ -77,6 +77,7 @@ class Rent:
         cursor.execute("""SELECT R.RentId, B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PedalStatus, B.PaddleCount, T.TouristId, T.Name, T.Family, T.Mobile, R.RentTime
                         FROM Rent AS R
                         INNER JOIN Boat AS B ON R.BoatId = B.BoatId
+                        INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId
                         INNER JOIN Tourist AS T ON R.TouristId = T.TouristId
                         WHERE ReturnTime IS NULL""")
 

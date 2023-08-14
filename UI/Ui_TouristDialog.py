@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_TouristDialog(object):
     def setupUi(self, TouristDialog):
         TouristDialog.setObjectName("TouristDialog")
-        TouristDialog.resize(484, 204)
+        TouristDialog.resize(590, 234)
         font = QtGui.QFont()
         font.setFamily("B Nazanin")
         font.setPointSize(12)
@@ -90,6 +90,7 @@ class Ui_TouristDialog(object):
         self.tbl_tourist_boats.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         self.tbl_tourist_boats.setHorizontalHeaderItem(1, item)
+        self.tbl_tourist_boats.verticalHeader().setVisible(False)
         self.verticalLayout_2.addWidget(self.tbl_tourist_boats)
         self.hlay_button_add = QtWidgets.QHBoxLayout()
         self.hlay_button_add.setObjectName("hlay_button_add")

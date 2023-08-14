@@ -65,9 +65,9 @@ class Boat(ABC):
                 WHERE R.ReturnTime IS NULL
                 GROUP BY B.BoatId
             ) 
-            AND B.BodyStatus = True AND
-            ((BT.BoatTypeName = 'موتوری' AND B.FullFuel = True)
-            OR (BT.BoatTypeName = 'پدالی' AND B.PedalStatus = True)
+            AND B.BodyStatus = 1 AND
+            ((BT.BoatTypeName = 'موتوری' AND B.FullFuel = 1)
+            OR (BT.BoatTypeName = 'پدالی' AND B.PedalStatus = 1)
             OR (BT.BoatTypeName = 'پارویی' AND B.PaddleCount >= 3))
             GROUP BY B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PaddleCount, B.PedalStatus
         """)
@@ -123,4 +123,4 @@ class Boat(ABC):
                 case "پارویی":
                     from RowBoat import RowBoat
                     boats.append(RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count))
-            return boats
+        return boats

@@ -19,7 +19,7 @@ class RowBoat(Boat):
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus)
                        OUTPUT INSERTED.BoatId
-                       VALUES (?,?,?,?,?,1,?,1)""", 2, color, owner_id, passenger_count, body_status, paddle_count)
+                       VALUES (?,?,?,?,?,1,?,1)""", 3, color, owner_id, passenger_count, body_status, paddle_count)
         boat_id = int(cursor.fetchval())
         cursor.commit()
         return boat_id
