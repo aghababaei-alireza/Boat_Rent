@@ -22,11 +22,12 @@ class Boat(ABC):
         return time * self.LAKE_PRICE
     
     @classmethod
-    def get_boat_by_id(cls, boat_id):
+    def get_boat_by_id(cls, boat_id) -> 'Boat':
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""SELECT B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PaddleCount, B.PedalStatus 
                        FROM Boat AS B
-                       INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId WHERE B.BoatId = ?""", boat_id)
+                       INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId 
+                       WHERE B.BoatId = ? AND B.IsActive = 1""", boat_id)
         row = cursor.fetchone()
         if not row:
             return None
@@ -59,7 +60,7 @@ class Boat(ABC):
             FROM Boat AS B
             INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId
             LEFT JOIN Rent AS R ON R.BoatId = B.BoatId
-            WHERE B.BoatId NOT IN (
+            WHERE B.IsActive = 1 AND B.BoatId NOT IN (
                 SELECT B.BoatId FROM Boat AS B 
                 INNER JOIN Rent AS R ON B.BoatId = R.BoatId
                 WHERE R.ReturnTime IS NULL
@@ -100,7 +101,8 @@ class Boat(ABC):
         cursor = DatabaseManager.get_cursor()
         cursor.execute("""SELECT B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PaddleCount, B.PedalStatus
                        FROM Boat AS B
-                       INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId""")
+                       INNER JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId
+                       WHERE B.IsActive = 1""")
         boats = []
         for row in cursor:
             boat_id = int(row[0])
@@ -124,3 +126,9 @@ class Boat(ABC):
                     from RowBoat import RowBoat
                     boats.append(RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count))
         return boats
+    
+    @classmethod
+    def delete_tourist_boats(cls, tourist_id):
+        curosr = DatabaseManager.get_cursor()
+        curosr.execute("""UPDATE Boat SET IsActive = 0 WHERE OwnerId = ?""", tourist_id)
+        curosr.commit()

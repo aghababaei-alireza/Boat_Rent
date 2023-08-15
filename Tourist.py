@@ -32,15 +32,22 @@ class Tourist:
         cursor.commit()
 
     @classmethod
+    def delete_tourist(cls, tourist_id):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""UPDATE Tourist SET IsActive = 0 WHERE TouristId = ?""", tourist_id)
+        cursor.commit()
+        Boat.delete_tourist_boats(tourist_id)
+    
+    @classmethod
     def get_all_tourists_id(cls) -> list[int]:
         cursor = DatabaseManager.get_cursor()
-        cursor.execute("SELECT TouristId FROM Tourist")
+        cursor.execute("SELECT TouristId FROM Tourist WHERE IsActive = 1")
         return [int(row[0]) for row in cursor]
     
     @classmethod
     def get_all_tourists(cls) -> list['Tourist']:
         cursor = DatabaseManager.get_cursor()
-        cursor.execute("SELECT TouristId, Name, Family, Mobile FROM Tourist")
+        cursor.execute("SELECT TouristId, Name, Family, Mobile FROM Tourist WHERE IsActive = 1")
         tourists = []
         for row in cursor:
             tourist_id = int(row[0])
@@ -57,7 +64,7 @@ class Tourist:
                        FROM Tourist AS T
                        LEFT JOIN Boat AS B ON T.TouristId = B.OwnerId
                        LEFT JOIN BoatType AS BT ON B.BoatTypeId = BT.BoatTypeId
-                       WHERE TouristId = ?""",
+                       WHERE T.TouristId = ? AND T.IsActive = 1""",
                        tourist_id)
         items = cursor.fetchall()
         name = items[0][0]

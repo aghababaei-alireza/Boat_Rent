@@ -12,6 +12,7 @@ from RowBoat import RowBoat
 from Rent import Rent
 from Tourist import Tourist
 from UI.BoatDialog import BoatDialog
+from UI.StatDialog import StatDialog
 
 class MainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):
@@ -23,6 +24,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.btn_add_boat.clicked.connect(self.btn_add_boat_clicked)
         self.btn_edit_boat.clicked.connect(self.btn_edit_boat_clicked)
         self.btn_delete_boat.clicked.connect(self.btn_delete_boat_clicked)
+        self.btn_calculate.clicked.connect(self.btn_calculate_clicked)
         
     def update_available_boats(self):
         self.available_boats = Boat.get_available_boats()
@@ -148,7 +150,16 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         TouristDialog(self, True, id).exec()
 
     def btn_delete_tourist_clicked(self):
-        pass
+        selected_items = self.tbl_tourists.selectedItems()
+        if not selected_items:
+            MessageDialog(self, "ابتدا گردشگر مورد نظر را از جدول انتخاب نمایید.").exec()
+            return
+        if MessageDialog(self, "آیا از حذف این گردشگر و تمام قایق‌های او اطمینان دارید؟", True).exec() == MessageDialog.Rejected:
+            return
+        tourist_id = int(self.tbl_tourists.item(selected_items[0].row(), 0))
+        Tourist.delete_tourist(tourist_id)
+        MessageDialog(self, "اطلاعات گردشگر به همراه تمام قایق‌های او با موفقیت حذف شد.").exec()
+
 
     def btn_add_boat_clicked(self):
         BoatDialog(self, 'create').exec()
@@ -158,3 +169,11 @@ class MainWindow(Ui_MainWindow, QMainWindow):
 
     def btn_delete_boat_clicked(self):
         BoatDialog(self, 'delete').exec()
+
+    def btn_calculate_clicked(self):
+        selected_rows = self.tbl_tourists.selectedItems()
+        if selected_rows:
+            id = int(self.tbl_tourists.item(selected_rows[0].row(), 0).text())
+        else:
+            id = None
+        StatDialog(self, id).exec()
