@@ -115,3 +115,52 @@ class Rent:
 
         return rent_items
     
+    @classmethod
+    def calculate_owner_income(cls, owner_id: int, datetime_from: datetime, datetime_to: datetime) -> list['Rent']:
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""SELECT R.RentId, B.BoatId, B.OwnerId, R.TouristId, R.RentTime, R.ReturnTime, R.OwnerIncome, R.LakeIncome 
+                       FROM Rent AS R
+                       INNER JOIN Boat AS B ON R.BoatId = B.BoatId
+                       WHERE R.ReturnTime IS NOT NULL AND B.OwnerId = ? AND 
+                       (R.RentTime BETWEEN ? AND ?) AND (R.ReturnTime BETWEEN ? AND ?)""",
+                       owner_id, datetime_from, datetime_to, datetime_from, datetime_to)
+        rent_items = []
+        for row in cursor:
+            rent_id = int(row[0])
+            boat = Boat(boat_id=int(row[1]), owner_id=int(row[2]))
+            tourist = Tourist(tourist_id=int(row[3]))
+            rent_time = datetime.fromisoformat(row[4])
+            return_time = datetime.fromisoformat(row[5])
+            owner_income = int(row[6])
+            lake_income = int(row[7])
+            rent_items.append(Rent(rent_id, boat, tourist, rent_time, return_time, owner_income, lake_income))
+        return rent_items
+
+    @classmethod
+    def calculate_lake_income(cls, datetime_from: datetime, datetime_to: datetime) -> list['Rent']:
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""SELECT R.RentId, B.BoatId, B.OwnerId, R.TouristId, R.RentTime, R.ReturnTime, R.OwnerIncome, R.LakeIncome 
+                       FROM Rent AS R
+                       INNER JOIN Boat AS B ON R.BoatId = B.BoatId
+                       WHERE R.ReturnTime IS NOT NULL AND 
+                       (R.RentTime BETWEEN ? AND ?) AND (R.ReturnTime BETWEEN ? AND ?)""",
+                       datetime_from, datetime_to, datetime_from, datetime_to)
+        rent_items = []
+        for row in cursor:
+            rent_id = int(row[0])
+            boat = Boat(boat_id=int(row[1]), owner_id=int(row[2]))
+            tourist = Tourist(tourist_id=int(row[3]))
+            rent_time = datetime.fromisoformat(row[4])
+            return_time = datetime.fromisoformat(row[5])
+            owner_income = int(row[6])
+            lake_income = int(row[7])
+            rent_items.append(Rent(rent_id, boat, tourist, rent_time, return_time, owner_income, lake_income))
+        return rent_items
+
+    @classmethod
+    def calculate_owner_daily_income(cls, owner_id: int, datetime_from: datetime, datetime_to: datetime):
+        pass
+
+    @classmethod
+    def calculate_lake_daily_income(cls, datetime_from: datetime, datetime_to: datetime):
+        pass

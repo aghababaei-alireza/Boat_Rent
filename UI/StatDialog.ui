@@ -183,14 +183,14 @@
          <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="title">
-            <string>محاسبه سود برای</string>
+            <string>محاسبه سود</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <property name="sizeConstraint">
              <enum>QLayout::SetFixedSize</enum>
             </property>
             <item>
-             <widget class="QRadioButton" name="chb_tourist">
+             <widget class="QRadioButton" name="rdb_tourist">
               <property name="text">
                <string>مالک</string>
               </property>
@@ -200,21 +200,35 @@
              </widget>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="hlay_tourist_id">
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>کد مالک:</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QComboBox" name="cmb_tourist_id"/>
-              </item>
-             </layout>
+             <widget class="QWidget" name="wgt_tourist_id" native="true">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>کد مالک:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cmb_tourist_id"/>
+               </item>
+              </layout>
+             </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="chb_lake">
+             <widget class="QRadioButton" name="rdb_lake">
               <property name="text">
                <string>شهرداری</string>
               </property>
@@ -303,7 +317,7 @@
    <item>
     <widget class="QTabWidget" name="tabwgt_stat">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_table">
       <attribute name="title">
@@ -348,6 +362,11 @@
          </column>
          <column>
           <property name="text">
+           <string>کد گردشگر اجاره‌کننده</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>زمان اجاره</string>
           </property>
          </column>
@@ -376,7 +395,43 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QWidget" name="wgt_plot" native="true"/>
+        <layout class="QHBoxLayout" name="hlay_plot_options">
+         <item>
+          <widget class="QRadioButton" name="rdb_line_plot">
+           <property name="text">
+            <string>نمودار خطی</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="rdb_bar_plot">
+           <property name="text">
+            <string>نمودار میله‌ای</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="wgt_plot" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_5"/>
+        </widget>
        </item>
       </layout>
      </widget>

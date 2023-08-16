@@ -18,7 +18,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.setupUi(self)
-        self.update()
+        # self.update()
         self.btn_add_tourist.clicked.connect(self.btn_add_tourist_clicked)
         self.btn_edit_tourist.clicked.connect(self.btn_edit_tourist_clicked)
         self.btn_add_boat.clicked.connect(self.btn_add_boat_clicked)

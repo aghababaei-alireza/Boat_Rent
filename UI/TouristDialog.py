@@ -16,14 +16,14 @@ class TouristDialog(Ui_TouristDialog, QDialog):
         self.cmb_tourist_id.setEnabled(edit_mode)
         self.grp_boats.setEnabled(edit_mode)
 
-        if edit_mode:
-            self.tourists_id = Tourist.get_all_tourists_id()
-            self.cmb_tourist_id.clear()
-            i = 0
-            for id in self.tourists_id:
-                self.cmb_tourist_id.insertItem(i, str(id))
-                i += 1
-            self.cmb_tourist_id_changed(int(self.cmb_tourist_id.currentText()))
+        # if edit_mode:
+            # self.tourists_id = Tourist.get_all_tourists_id()
+            # self.cmb_tourist_id.clear()
+            # i = 0
+            # for id in self.tourists_id:
+            #     self.cmb_tourist_id.insertItem(i, str(id))
+            #     i += 1
+            # self.cmb_tourist_id_changed(int(self.cmb_tourist_id.currentText()))
 
         self.btn_add_tourist.clicked.connect(self.btn_add_tourist_clicked)
         self.btn_edit.clicked.connect(self.btn_edit_tourist_clicked)

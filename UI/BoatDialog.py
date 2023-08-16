@@ -25,15 +25,15 @@ class BoatDialog(Ui_BoatDialog, QDialog):
         self.btn_delete_boat.clicked.connect(self.btn_delete_boat_clicked)
         self.btn_return.clicked.connect(self.reject)
 
-        if mode != 'create':
-            self.boats = Boat.get_all_boats()
-            self.cmb_boat_id.clear()
-            for boat in self.boats:
-                self.cmb_boat_id.addItem(str(boat.boat_id))
-            self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
+        # if mode != 'create':
+        #     self.boats = Boat.get_all_boats()
+        #     self.cmb_boat_id.clear()
+        #     for boat in self.boats:
+        #         self.cmb_boat_id.addItem(str(boat.boat_id))
+        #     self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
 
         self.cmb_boat_id.currentTextChanged.connect(lambda current_text: self.cmb_boat_id_changed(int(current_text)))
-        self.cmb_boat_id_changed(self.cmb_boat_id.currentText())
+        # self.cmb_boat_id_changed(self.cmb_boat_id.currentText())
         
         self.cmb_boat_type.currentTextChanged.connect(self.cmb_boat_type_changed)
         self.cmb_boat_type_changed(self.cmb_boat_type.currentText())
