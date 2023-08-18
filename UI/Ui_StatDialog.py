@@ -205,8 +205,8 @@ class Ui_StatDialog(object):
         self.verticalLayout_7.addLayout(self.hlay_plot_options)
         self.wgt_plot = QtWidgets.QWidget(self.tab_plot)
         self.wgt_plot.setObjectName("wgt_plot")
-        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.wgt_plot)
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.vlay_plot = QtWidgets.QVBoxLayout(self.wgt_plot)
+        self.vlay_plot.setObjectName("vlay_plot")
         self.verticalLayout_7.addWidget(self.wgt_plot)
         self.tabwgt_stat.addTab(self.tab_plot, "")
         self.horizontalLayout_5.addWidget(self.tabwgt_stat)
@@ -214,7 +214,7 @@ class Ui_StatDialog(object):
         self.horizontalLayout_5.setStretch(1, 6)
 
         self.retranslateUi(StatDialog)
-        self.tabwgt_stat.setCurrentIndex(0)
+        self.tabwgt_stat.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(StatDialog)
 
     def retranslateUi(self, StatDialog):

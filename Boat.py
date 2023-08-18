@@ -67,9 +67,9 @@ class Boat(ABC):
                 GROUP BY B.BoatId
             ) 
             AND B.BodyStatus = 1 AND
-            ((BT.BoatTypeName = 'موتوری' AND B.FullFuel = 1)
-            OR (BT.BoatTypeName = 'پدالی' AND B.PedalStatus = 1)
-            OR (BT.BoatTypeName = 'پارویی' AND B.PaddleCount >= 3))
+            ((BT.BoatTypeName = N'موتوری' AND B.FullFuel = 1)
+            OR (BT.BoatTypeName = N'پدالی' AND B.PedalStatus = 1)
+            OR (BT.BoatTypeName = N'پارویی' AND B.PaddleCount >= 3))
             GROUP BY B.BoatId, BT.BoatTypeName, B.Color, B.OwnerId, B.PassengerCount, B.BodyStatus, B.FullFuel, B.PaddleCount, B.PedalStatus
         """)
         boats = []
@@ -131,4 +131,10 @@ class Boat(ABC):
     def delete_tourist_boats(cls, tourist_id):
         curosr = DatabaseManager.get_cursor()
         curosr.execute("""UPDATE Boat SET IsActive = 0 WHERE OwnerId = ?""", tourist_id)
+        curosr.commit()
+
+    @classmethod
+    def delete_boat_by_id(cls, boat_id):
+        curosr = DatabaseManager.get_cursor()
+        curosr.execute("""UPDATE Boat SET IsActive = 0 WHERE BoatId = ?""", boat_id)
         curosr.commit()

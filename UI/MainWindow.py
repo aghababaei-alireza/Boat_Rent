@@ -1,6 +1,4 @@
 from UI.Ui_MainWindow import Ui_MainWindow
-from UI.Ui_TouristDialog import Ui_TouristDialog
-from UI.Ui_BoatDialog import Ui_BoatDialog
 from UI.DateTimeDialog import DateTimeDialog
 from UI.MessageDialog import MessageDialog
 from UI.TouristDialog import TouristDialog
@@ -18,9 +16,10 @@ class MainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):
         super(QMainWindow, self).__init__()
         self.setupUi(self)
-        # self.update()
+        self.update()
         self.btn_add_tourist.clicked.connect(self.btn_add_tourist_clicked)
         self.btn_edit_tourist.clicked.connect(self.btn_edit_tourist_clicked)
+        self.btn_delete_tourist.clicked.connect(self.btn_delete_tourist_clicked)
         self.btn_add_boat.clicked.connect(self.btn_add_boat_clicked)
         self.btn_edit_boat.clicked.connect(self.btn_edit_boat_clicked)
         self.btn_delete_boat.clicked.connect(self.btn_delete_boat_clicked)
@@ -65,16 +64,18 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             MessageDialog(self, "ابتدا گردشگر اجاره‌کننده را از جدول گردشگران انتخاب کنید.").exec()
             return
         selected_row = self.tbl_tourists.selectedItems()[0].row()
-        tourist_id = int(self.tbl_tourists.item(selected_row, 0))
+        tourist_id = int(self.tbl_tourists.item(selected_row, 0).text())
 
         dlg_datetime = DateTimeDialog(self)
         (res, dt) = dlg_datetime.exec()
         if res == dlg_datetime.Rejected:
             return
         rent = Rent(boat=boat, tourist=Tourist(tourist_id))
-        rent.start_rent(dt)
-        MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} اجاره شد.").exec()
-        self.update()
+        if rent.start_rent(dt):
+            MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} اجاره شد.").exec()
+            self.update()
+        else:
+            MessageDialog(self, "در حال حاضر ظرفیت دریاچه تکمیل است.").exec()
 
     def update_rented_boats(self):
         self.rent_items = Rent.get_rented_boats()
@@ -92,18 +93,18 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             self.tbl_rented_boats.setItem(i, 2, QTableWidgetItem(str(rent.boat.boat_id))) # Boat Id
 
             if isinstance(rent.boat, MotorBoat):
-                self.tbl_available_boats.setItem(i, 3, QTableWidgetItem('موتوری')) # Boat Type
+                self.tbl_rented_boats.setItem(i, 3, QTableWidgetItem('موتوری')) # Boat Type
             elif isinstance(rent.boat, PedalBoat):
-                self.tbl_available_boats.setItem(i, 3, QTableWidgetItem('پدالی')) # Boat Type
+                self.tbl_rented_boats.setItem(i, 3, QTableWidgetItem('پدالی')) # Boat Type
             elif isinstance(rent.boat, RowBoat):
-                self.tbl_available_boats.setItem(i, 3, QTableWidgetItem('پارویی')) # Boat Type
+                self.tbl_rented_boats.setItem(i, 3, QTableWidgetItem('پارویی')) # Boat Type
 
             self.tbl_rented_boats.setItem(i, 4, QTableWidgetItem(rent.boat.color)) # Boat Color
             self.tbl_rented_boats.setItem(i, 5, QTableWidgetItem(str(rent.boat.owner_id))) # Owner Id
             self.tbl_rented_boats.setItem(i, 6, QTableWidgetItem(str(rent.tourist.tourist_id))) # Tourist Id
-            self.tbl_rented_boats.setItem(i, 7, QTableWidgetItem(rent.rent_time.isoformat())) # Rent Time
+            self.tbl_rented_boats.setItem(i, 7, QTableWidgetItem(rent.rent_time.strftime("%Y/%m/%d - %H:%M"))) # Rent Time
             
-            self.tbl_rented_boats.setCellWidget(i, 0, self.create_return_button()) # Function
+            self.tbl_rented_boats.setCellWidget(i, 0, self.create_return_button(rent)) # Function
 
     def create_return_button(self, rent: Rent):
         btn = QPushButton("بازگرداندن")
@@ -140,6 +141,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
 
     def btn_add_tourist_clicked(self):
         TouristDialog(self).exec()
+        self.update()
 
     def btn_edit_tourist_clicked(self):
         selected_rows = self.tbl_tourists.selectedItems()
@@ -148,6 +150,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         else:
             id = None
         TouristDialog(self, True, id).exec()
+        self.update()
 
     def btn_delete_tourist_clicked(self):
         selected_items = self.tbl_tourists.selectedItems()
@@ -156,19 +159,23 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             return
         if MessageDialog(self, "آیا از حذف این گردشگر و تمام قایق‌های او اطمینان دارید؟", True).exec() == MessageDialog.Rejected:
             return
-        tourist_id = int(self.tbl_tourists.item(selected_items[0].row(), 0))
+        tourist_id = int(self.tbl_tourists.item(selected_items[0].row(), 0).text())
         Tourist.delete_tourist(tourist_id)
         MessageDialog(self, "اطلاعات گردشگر به همراه تمام قایق‌های او با موفقیت حذف شد.").exec()
+        self.update()
 
 
     def btn_add_boat_clicked(self):
         BoatDialog(self, 'create').exec()
+        self.update()
 
     def btn_edit_boat_clicked(self):
         BoatDialog(self, 'edit').exec()
+        self.update()
 
     def btn_delete_boat_clicked(self):
         BoatDialog(self, 'delete').exec()
+        self.update()
 
     def btn_calculate_clicked(self):
         selected_rows = self.tbl_tourists.selectedItems()

@@ -317,7 +317,7 @@
    <item>
     <widget class="QTabWidget" name="tabwgt_stat">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_table">
       <attribute name="title">
@@ -430,7 +430,7 @@
        </item>
        <item>
         <widget class="QWidget" name="wgt_plot" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_5"/>
+         <layout class="QVBoxLayout" name="vlay_plot"/>
         </widget>
        </item>
       </layout>

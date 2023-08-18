@@ -25,15 +25,15 @@ class BoatDialog(Ui_BoatDialog, QDialog):
         self.btn_delete_boat.clicked.connect(self.btn_delete_boat_clicked)
         self.btn_return.clicked.connect(self.reject)
 
-        # if mode != 'create':
-        #     self.boats = Boat.get_all_boats()
-        #     self.cmb_boat_id.clear()
-        #     for boat in self.boats:
-        #         self.cmb_boat_id.addItem(str(boat.boat_id))
-        #     self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
+        if mode != 'create':
+            self.boats = Boat.get_all_boats()
+            self.cmb_boat_id.clear()
+            for boat in self.boats:
+                self.cmb_boat_id.addItem(str(boat.boat_id))
+            self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
 
-        self.cmb_boat_id.currentTextChanged.connect(lambda current_text: self.cmb_boat_id_changed(int(current_text)))
-        # self.cmb_boat_id_changed(self.cmb_boat_id.currentText())
+        self.cmb_boat_id.currentTextChanged.connect(self.cmb_boat_id_changed)
+        self.cmb_boat_id_changed(self.cmb_boat_id.currentText())
         
         self.cmb_boat_type.currentTextChanged.connect(self.cmb_boat_type_changed)
         self.cmb_boat_type_changed(self.cmb_boat_type.currentText())
@@ -49,6 +49,9 @@ class BoatDialog(Ui_BoatDialog, QDialog):
             self.spn_paddle_count.setEnabled(False)
 
     def cmb_boat_id_changed(self, current_id):
+        if not current_id:
+            return
+        current_id = int(current_id)
         boat = Boat.get_boat_by_id(current_id)
         self.txt_color.setText(boat.color)
         self.txt_owner_id.setText(str(boat.owner_id))
@@ -95,6 +98,8 @@ class BoatDialog(Ui_BoatDialog, QDialog):
         self.accept()
 
     def btn_edit_boat_clicked(self):
+        if MessageDialog(self, "آیا از ویرایش اطلاعات این قایق اطمینان دارید؟", True).exec() == MessageDialog.Rejected:
+            return
         boat_id = int(self.cmb_boat_id.currentText())
         boat_type_name = self.cmb_boat_type.currentText()
         color = self.txt_color.text()
@@ -116,4 +121,11 @@ class BoatDialog(Ui_BoatDialog, QDialog):
     
     def btn_delete_boat_clicked(self):
         boat_id = int(self.cmb_boat_id.currentText())
-        # TODO
+        if MessageDialog(self, "آیا از حذف این قایق اطمینان دارید؟", True).exec() == MessageDialog.Rejected:
+            return
+        Boat.delete_boat_by_id(boat_id)
+        self.boats = Boat.get_all_boats()
+        self.cmb_boat_id.clear()
+        for boat in self.boats:
+            self.cmb_boat_id.addItem(str(boat.boat_id))
+        self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
