@@ -171,7 +171,7 @@ class Rent:
                        owner_id, datetime_from, datetime_to, datetime_from, datetime_to)
         daily_incomes = {}
         for row in cursor:
-            date = row[0]
+            date = datetime.fromisoformat(row[0])
             income = int(row[1])
             daily_incomes[date] = income
         return daily_incomes
@@ -189,7 +189,7 @@ class Rent:
                        datetime_from, datetime_to, datetime_from, datetime_to)
         daily_incomes = {}
         for row in cursor:
-            date = row[0]
+            date = datetime.fromisoformat(row[0])
             income = int(row[1])
             daily_incomes[date] = income
         return daily_incomes

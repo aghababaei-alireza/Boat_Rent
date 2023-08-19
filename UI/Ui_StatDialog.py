@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_StatDialog(object):
     def setupUi(self, StatDialog):
         StatDialog.setObjectName("StatDialog")
-        StatDialog.resize(904, 430)
+        StatDialog.resize(1271, 540)
         font = QtGui.QFont()
         font.setFamily("B Nazanin")
         font.setPointSize(12)
@@ -269,4 +269,4 @@ class Ui_StatDialog(object):
         self.tabwgt_stat.setTabText(self.tabwgt_stat.indexOf(self.tab_table), _translate("StatDialog", "نمایش به صورت جدول"))
         self.rdb_line_plot.setText(_translate("StatDialog", "نمودار خطی"))
         self.rdb_bar_plot.setText(_translate("StatDialog", "نمودار میله‌ای"))
-        self.tabwgt_stat.setTabText(self.tabwgt_stat.indexOf(self.tab_plot), _translate("StatDialog", "نمایش به صورت نمودار"))
+        self.tabwgt_stat.setTabText(self.tabwgt_stat.indexOf(self.tab_plot), _translate("StatDialog", "نمایش به صورت نمودار روزانه"))

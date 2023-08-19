@@ -4,8 +4,8 @@ from datetime import datetime, timedelta
 from Rent import Rent
 from Tourist import Tourist
 from UI.MessageDialog import MessageDialog
-# from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-# import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
 from typing import Literal
 
 class StatDialog(Ui_StatDialog, QDialog):
@@ -39,10 +39,10 @@ class StatDialog(Ui_StatDialog, QDialog):
         self.spn_month_to.valueChanged.connect(lambda: self.lbl_error.setVisible(False))
         self.spn_day_to.valueChanged.connect(lambda: self.lbl_error.setVisible(False))
 
-        # self.figure = plt.figure()
-        # self.canvas = FigureCanvas(self.figure)
-        # self.vlay_plot.addWidget(self.canvas)
-        # self.rdb_line_plot.toggled.connect(lambda checked: self.plot_income(self.daily_incomes, 'line' if checked else 'bar'))
+        self.figure = plt.figure()
+        self.canvas = FigureCanvas(self.figure)
+        self.vlay_plot.addWidget(self.canvas)
+        self.rdb_line_plot.toggled.connect(lambda checked: self.plot_income(self.daily_incomes, 'line' if checked else 'bar'))
 
     def show_error(self, message: str):
         self.lbl_error.setText(message)
@@ -114,8 +114,8 @@ class StatDialog(Ui_StatDialog, QDialog):
     def plot_income(self, daily_income: dict, plot_type: Literal['line', 'bar']):
         if not daily_income:
             return
-        x = daily_income.keys()
-        y = daily_income.values()
+        x = sorted(daily_income.keys()).sort()
+        y = [daily_income[k] for k in x]
         self.figure.clear()
         ax = self.figure.add_subplot(111)
         match plot_type:

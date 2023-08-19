@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>904</width>
-    <height>430</height>
+    <width>1271</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="font">
@@ -440,7 +440,7 @@
      </widget>
      <widget class="QWidget" name="tab_plot">
       <attribute name="title">
-       <string>نمایش به صورت نمودار</string>
+       <string>نمایش به صورت نمودار روزانه</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>

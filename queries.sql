@@ -1,4 +1,3 @@
-CREATE DATABASE dbLake COLLATE Persian_100_CI_AI
 USE dbLake
 GO
 CREATE TABLE Tourist (
@@ -28,12 +27,8 @@ CREATE TABLE Boat (
     PaddleCount INT NULL,
     PedalStatus BIT NULL,
     IsActive BIT NOT NULL,
-    CONSTRAINT FK_Boat_BoatType FOREIGN KEY (BoatTypeId) REFERENCES BoatType(BoatTypeId)
-    ON UPDATE CASCADE 
-    ON DELETE CASCADE,
+    CONSTRAINT FK_Boat_BoatType FOREIGN KEY (BoatTypeId) REFERENCES BoatType(BoatTypeId),
     CONSTRAINT FK_Boat_Owner FOREIGN KEY (OwnerId) REFERENCES Tourist(TouristId)
-    ON UPDATE CASCADE 
-    ON DELETE CASCADE
 )
 GO
 CREATE TABLE Rent (
@@ -44,10 +39,6 @@ CREATE TABLE Rent (
     ReturnTime DATETIME NULL,
     OwnerIncome INT NULL,
     LakeIncome INT NULL,
-    CONSTRAINT FK_Rent_Boat FOREIGN KEY (BoatId) REFERENCES Boat(BoatId)
-    ON UPDATE CASCADE 
-    ON DELETE CASCADE,
+    CONSTRAINT FK_Rent_Boat FOREIGN KEY (BoatId) REFERENCES Boat(BoatId),
     CONSTRAINT FK_Rent_Tourist FOREIGN KEY (TouristId) REFERENCES Tourist(TouristId)
-    ON UPDATE CASCADE 
-    ON DELETE CASCADE
 )
