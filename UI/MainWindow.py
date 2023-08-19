@@ -135,9 +135,12 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             i += 1
     
     def update(self):
-        self.update_available_boats()
-        self.update_rented_boats()
-        self.update_tourists()
+        try:
+            self.update_available_boats()
+            self.update_rented_boats()
+            self.update_tourists()
+        except:
+            MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def btn_add_tourist_clicked(self):
         TouristDialog(self).exec()
@@ -163,7 +166,6 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         Tourist.delete_tourist(tourist_id)
         MessageDialog(self, "اطلاعات گردشگر به همراه تمام قایق‌های او با موفقیت حذف شد.").exec()
         self.update()
-
 
     def btn_add_boat_clicked(self):
         BoatDialog(self, 'create').exec()

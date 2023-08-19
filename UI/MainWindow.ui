@@ -144,7 +144,7 @@
          <item>
           <widget class="QLabel" name="lbl_rented_boats_count">
            <property name="text">
-            <string>5</string>
+            <string>0</string>
            </property>
           </widget>
          </item>
@@ -171,7 +171,7 @@
          <item>
           <widget class="QLabel" name="lbl_available_boats_count">
            <property name="text">
-            <string>15</string>
+            <string>0</string>
            </property>
           </widget>
          </item>
