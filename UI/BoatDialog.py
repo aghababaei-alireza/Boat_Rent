@@ -40,7 +40,8 @@ class BoatDialog(Ui_BoatDialog, QDialog):
                 for boat in self.boats:
                     self.cmb_boat_id.addItem(str(boat.boat_id))
                 self.cmb_boat_id_changed(self.cmb_boat_id.currentText())
-            except:
+            except Exception as e:
+                print(e)
                 MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
         self.cmb_boat_id.currentTextChanged.connect(self.cmb_boat_id_changed)
@@ -97,7 +98,8 @@ class BoatDialog(Ui_BoatDialog, QDialog):
                 self.cmb_boat_type.setCurrentText('پارویی')
                 self.spn_paddle_count.setValue(boat.paddle_count)
             self.cmb_boat_type_changed(self.cmb_boat_type.currentText())
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def cmb_boat_type_changed(self, current_text):
@@ -131,7 +133,8 @@ class BoatDialog(Ui_BoatDialog, QDialog):
                     boat_id = RowBoat.create_new_row_boat(color, owner_id, passenger_count, body_status, paddle_count)
             MessageDialog(self, f"قایق با کد {boat_id} ایجاد شد.").exec()
             self.accept()
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def btn_edit_boat_clicked(self):
@@ -157,7 +160,8 @@ class BoatDialog(Ui_BoatDialog, QDialog):
                     paddle_count = self.spn_paddle_count.value()
                     RowBoat.edit_row_boat(boat_id, color, owner_id, passenger_count, body_status, paddle_count)
             MessageDialog(self, "اطلاعات قایق با موفقیت ویرایش شد.").exec()
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
     
     def btn_delete_boat_clicked(self):
@@ -173,5 +177,6 @@ class BoatDialog(Ui_BoatDialog, QDialog):
             for boat in self.boats:
                 self.cmb_boat_id.addItem(str(boat.boat_id))
             self.cmb_boat_id_changed(int(self.cmb_boat_id.currentText()))
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()

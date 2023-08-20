@@ -27,7 +27,8 @@ class TouristDialog(Ui_TouristDialog, QDialog):
                     self.cmb_tourist_id.insertItem(i, str(id))
                     i += 1
                 self.cmb_tourist_id_changed(self.cmb_tourist_id.currentText())
-            except:
+            except Exception as e:
+                print(e)
                 MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
                 self.btn_new_boat.setEnabled(False)
 
@@ -79,7 +80,8 @@ class TouristDialog(Ui_TouristDialog, QDialog):
             MessageDialog(self, "گردشگر جدید با موفقیت ثبت شد.").exec()
             self.btn_add_tourist.setEnabled(False)
             self.grp_boats.setEnabled(True)
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def btn_edit_tourist_clicked(self):
@@ -94,7 +96,8 @@ class TouristDialog(Ui_TouristDialog, QDialog):
         try:
             Tourist.edit_tourist_info(tourist_id, name, family, mobile)
             MessageDialog(self, "اطلاعات گردشگر با موفقیت ویرایش شد.").exec()
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def cmb_tourist_id_changed(self, tourist_id):
@@ -119,7 +122,8 @@ class TouristDialog(Ui_TouristDialog, QDialog):
                 elif isinstance(boat, RowBoat):
                     self.tbl_tourist_boats.setItem(i, 1, QTableWidgetItem('پارویی'))
                 i += 1
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def btn_new_boat_clicked(self):

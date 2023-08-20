@@ -18,7 +18,8 @@ class StatDialog(Ui_StatDialog, QDialog):
             self.cmb_tourist_id.clear()
             for id in self.tourists_id:
                 self.cmb_tourist_id.addItem(str(id))
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
         if tourist_id:
@@ -110,13 +111,14 @@ class StatDialog(Ui_StatDialog, QDialog):
                     self.daily_incomes[d] = 0
                 d += timedelta(days=1)
             self.plot_income(self.daily_incomes, 'line' if self.rdb_line_plot.isChecked() else 'bar')
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def plot_income(self, daily_income: dict, plot_type: Literal['line', 'bar']):
         if not daily_income:
             return
-        x = sorted(daily_income.keys()).sort()
+        x = sorted(daily_income.keys())
         y = [daily_income[k] for k in x]
         self.figure.clear()
         ax = self.figure.add_subplot(111)

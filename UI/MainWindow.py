@@ -27,7 +27,9 @@ class MainWindow(Ui_MainWindow, QMainWindow):
 
         self.tbl_tourists.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         self.tbl_available_boats.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.tbl_available_boats.horizontalHeader().setSectionResizeMode(7, QHeaderView.ResizeMode.Stretch)
         self.tbl_rented_boats.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.tbl_rented_boats.horizontalHeader().setSectionResizeMode(7, QHeaderView.ResizeMode.Stretch)
         
     def update_available_boats(self):
         self.available_boats = Boat.get_available_boats()
@@ -143,7 +145,8 @@ class MainWindow(Ui_MainWindow, QMainWindow):
             self.update_available_boats()
             self.update_rented_boats()
             self.update_tourists()
-        except:
+        except Exception as e:
+            print(e)
             MessageDialog(self, "ارتباط با پایگاه داده برقرار نشد.").exec()
 
     def btn_add_tourist_clicked(self):
