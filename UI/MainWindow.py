@@ -2,7 +2,7 @@ from UI.Ui_MainWindow import Ui_MainWindow
 from UI.DateTimeDialog import DateTimeDialog
 from UI.MessageDialog import MessageDialog
 from UI.TouristDialog import TouristDialog
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QPushButton
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QPushButton, QHeaderView
 from Boat import Boat
 from MotorBoat import MotorBoat
 from PedalBoat import PedalBoat
@@ -24,6 +24,10 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.btn_edit_boat.clicked.connect(self.btn_edit_boat_clicked)
         self.btn_delete_boat.clicked.connect(self.btn_delete_boat_clicked)
         self.btn_calculate.clicked.connect(self.btn_calculate_clicked)
+
+        self.tbl_tourists.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.tbl_available_boats.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.tbl_rented_boats.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         
     def update_available_boats(self):
         self.available_boats = Boat.get_available_boats()

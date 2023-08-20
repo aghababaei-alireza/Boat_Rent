@@ -1,5 +1,5 @@
 from UI.Ui_StatDialog import Ui_StatDialog
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QHeaderView
 from datetime import datetime, timedelta
 from Rent import Rent
 from Tourist import Tourist
@@ -38,6 +38,8 @@ class StatDialog(Ui_StatDialog, QDialog):
         self.spn_year_to.valueChanged.connect(lambda: self.lbl_error.setVisible(False))
         self.spn_month_to.valueChanged.connect(lambda: self.lbl_error.setVisible(False))
         self.spn_day_to.valueChanged.connect(lambda: self.lbl_error.setVisible(False))
+
+        self.tbl_income.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
 
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
