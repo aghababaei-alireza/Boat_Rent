@@ -35,8 +35,6 @@ class DatabaseManager:
         cursor = conn.cursor()
         cursor.execute("CREATE DATABASE dbLake COLLATE Persian_100_CI_AI")
         with open("queries.sql") as sql_file:
-            commands = sql_file.read().split("GO")
-            for command in commands:
-                cursor.execute(command)
+            cursor.execute(sql_file.read(), 'موتوری', 'پدالی', 'پارویی')
         cursor.commit()
         conn.close()

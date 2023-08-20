@@ -76,7 +76,7 @@ class TouristDialog(Ui_TouristDialog, QDialog):
         try:
             id = Tourist.create_new_tourist(name, family, mobile)
             self.cmb_tourist_id.clear()
-            self.cmb_tourist_id.setCurrentText(str(id))
+            self.cmb_tourist_id.addItem(str(id))
             MessageDialog(self, "گردشگر جدید با موفقیت ثبت شد.").exec()
             self.btn_add_tourist.setEnabled(False)
             self.grp_boats.setEnabled(True)

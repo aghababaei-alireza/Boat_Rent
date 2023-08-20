@@ -1,21 +1,17 @@
-USE dbLake
-GO
+USE dbLake;
 CREATE TABLE Tourist (
     TouristId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     Name NVARCHAR(20) NOT NULL,
     Family NVARCHAR(30) NOT NULL,
     Mobile NVARCHAR(11) NOT NULL,
     IsActive BIT NOT NULL
-)
-GO
+);
 CREATE TABLE BoatType (
     BoatTypeId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     BoatTypeName NVARCHAR(15) NOT NULL
-)
-GO
+);
 INSERT INTO BoatType (BoatTypeName)
-VALUES (N'موتوری'), (N'پدالی'), (N'پارویی')
-GO
+VALUES (?), (?), (?);
 CREATE TABLE Boat (
     BoatId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     BoatTypeId INT NOT NULL,
@@ -29,8 +25,7 @@ CREATE TABLE Boat (
     IsActive BIT NOT NULL,
     CONSTRAINT FK_Boat_BoatType FOREIGN KEY (BoatTypeId) REFERENCES BoatType(BoatTypeId),
     CONSTRAINT FK_Boat_Owner FOREIGN KEY (OwnerId) REFERENCES Tourist(TouristId)
-)
-GO
+);
 CREATE TABLE Rent (
     RentId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     BoatId INT NOT NULL,
@@ -41,4 +36,4 @@ CREATE TABLE Rent (
     LakeIncome INT NULL,
     CONSTRAINT FK_Rent_Boat FOREIGN KEY (BoatId) REFERENCES Boat(BoatId),
     CONSTRAINT FK_Rent_Tourist FOREIGN KEY (TouristId) REFERENCES Tourist(TouristId)
-)
+);
