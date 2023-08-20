@@ -17,9 +17,9 @@ class MotorBoat(Boat):
     @classmethod
     def create_new_motor_boat(cls, color, owner_id, passenger_count, body_status, full_fuel) -> int:
         cursor = DatabaseManager.get_cursor()
-        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus)
+        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus, IsActive)
                        OUTPUT INSERTED.BoatId
-                       VALUES (1,?,?,?,?,?,0,1)""", color, owner_id, passenger_count, body_status, full_fuel)
+                       VALUES (1,?,?,?,?,?,0,1,1)""", color, owner_id, passenger_count, body_status, full_fuel)
         boat_id = int(cursor.fetchval())
         cursor.commit()
         return boat_id

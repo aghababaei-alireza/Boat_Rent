@@ -17,9 +17,9 @@ class RowBoat(Boat):
     @classmethod
     def create_new_row_boat(cls, color, owner_id, passenger_count, body_status, paddle_count):
         cursor = DatabaseManager.get_cursor()
-        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus)
+        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus, IsActive)
                        OUTPUT INSERTED.BoatId
-                       VALUES (?,?,?,?,?,1,?,1)""", 3, color, owner_id, passenger_count, body_status, paddle_count)
+                       VALUES (?,?,?,?,?,1,?,1,1)""", 3, color, owner_id, passenger_count, body_status, paddle_count)
         boat_id = int(cursor.fetchval())
         cursor.commit()
         return boat_id

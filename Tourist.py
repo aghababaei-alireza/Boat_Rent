@@ -19,7 +19,7 @@ class Tourist:
     @classmethod
     def create_new_tourist(cls, name, family, mobile) -> int:
         cursor = DatabaseManager.get_cursor()
-        cursor.execute("""INSERT INTO Tourist (Name, Family, Mobile) OUTPUT INSERTED.TouristId VALUES (?,?,?)""", name, family, mobile)
+        cursor.execute("""INSERT INTO Tourist (Name, Family, Mobile, IsActive) OUTPUT INSERTED.TouristId VALUES (?,?,?,1)""", name, family, mobile)
         inserted_id = int(cursor.fetchval())
         cursor.commit()
         return inserted_id
