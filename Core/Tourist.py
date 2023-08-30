@@ -1,8 +1,4 @@
-from DatabaseManager import DatabaseManager
-from MotorBoat import MotorBoat
-from PedalBoat import PedalBoat
-from RowBoat import RowBoat
-from Boat import Boat
+from Core import *
 
 class Tourist:
     def __init__(self, tourist_id: int = 0,

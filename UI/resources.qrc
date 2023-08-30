@@ -1,8 +1,0 @@
-<RCC>
-  <qresource prefix="icons">
-    <file>resources/add_boat.png</file>
-    <file>resources/delete_boat.png</file>
-    <file>resources/add_tourist.png</file>
-    <file>resources/delete_tourist.png</file>
-  </qresource>
-</RCC>

@@ -1,12 +1,4 @@
-from UI.Ui_TouristDialog import Ui_TouristDialog
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem
-from Tourist import Tourist
-from UI.MessageDialog import MessageDialog
-from MotorBoat import MotorBoat
-from PedalBoat import PedalBoat
-from RowBoat import RowBoat
-from UI.BoatDialog import BoatDialog
-import re
+from UI import *
 
 class TouristDialog(Ui_TouristDialog, QDialog):
     def __init__(self, parent = None, edit_mode: bool = False, tourist_id: int = None):

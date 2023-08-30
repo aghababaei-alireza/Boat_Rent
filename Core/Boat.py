@@ -1,5 +1,4 @@
-from abc import ABC, abstractmethod
-from DatabaseManager import DatabaseManager
+from Core import *
 
 class Boat(ABC):
     RENT_PRICE = 0
@@ -43,13 +42,13 @@ class Boat(ABC):
 
         match boat_type_name:
             case "موتوری":
-                from MotorBoat import MotorBoat
+                from Core import MotorBoat
                 return MotorBoat(boat_id, color, owner_id, passenger_count, body_status, full_fuel)
             case "پدالی":
-                from PedalBoat import PedalBoat
+                from Core import PedalBoat
                 return PedalBoat(boat_id, color, owner_id, passenger_count, body_status, pedal_status)
             case "پارویی":
-                from RowBoat import RowBoat
+                from Core import RowBoat
                 return RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count)
             
     @classmethod
@@ -86,13 +85,13 @@ class Boat(ABC):
 
             match boat_type_name:
                 case "موتوری":
-                    from MotorBoat import MotorBoat
+                    from Core import MotorBoat
                     boats.append(MotorBoat(boat_id, color, owner_id, passenger_count, body_status, full_fuel))
                 case "پدالی":
-                    from PedalBoat import PedalBoat
+                    from Core import PedalBoat
                     boats.append(PedalBoat(boat_id, color, owner_id, passenger_count, body_status, pedal_status))
                 case "پارویی":
-                    from RowBoat import RowBoat
+                    from Core import RowBoat
                     boats.append(RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count))
         return boats
 
@@ -117,13 +116,13 @@ class Boat(ABC):
 
             match boat_type_name:
                 case "موتوری":
-                    from MotorBoat import MotorBoat
+                    from Core import MotorBoat
                     boats.append(MotorBoat(boat_id, color, owner_id, passenger_count, body_status, full_fuel))
                 case "پدالی":
-                    from PedalBoat import PedalBoat
+                    from Core import PedalBoat
                     boats.append(PedalBoat(boat_id, color, owner_id, passenger_count, body_status, pedal_status))
                 case "پارویی":
-                    from RowBoat import RowBoat
+                    from Core import RowBoat
                     boats.append(RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count))
         return boats
     
@@ -138,3 +137,99 @@ class Boat(ABC):
         curosr = DatabaseManager.get_cursor()
         curosr.execute("""UPDATE Boat SET IsActive = 0 WHERE BoatId = ?""", boat_id)
         curosr.commit()
+
+class MotorBoat(Boat):
+    RENT_PRICE = 200000
+    LAKE_PRICE = 100000
+
+    def __init__(self, boat_id: int = 0, 
+                 color: str = "", 
+                 owner_id: int = None, 
+                 passenger_count: int = 4, 
+                 body_status: bool = True,
+                 full_fuel: bool = True):
+        super().__init__(boat_id, color, owner_id, passenger_count, body_status)
+        self.full_fuel = full_fuel
+
+    @classmethod
+    def create_new_motor_boat(cls, color, owner_id, passenger_count, body_status, full_fuel) -> int:
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus, IsActive)
+                       OUTPUT INSERTED.BoatId
+                       VALUES (1,?,?,?,?,?,0,1,1)""", color, owner_id, passenger_count, body_status, full_fuel)
+        boat_id = int(cursor.fetchval())
+        cursor.commit()
+        return boat_id
+    
+    @classmethod
+    def edit_motor_boat(cls, boat_id, color, owner_id, passenger_count, body_status, full_fuel):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""UPDATE Boat SET
+                       BoatTypeId = 1, Color = ?, OwnerId = ?, PassengerCount = ?, BodyStatus = ?, FullFuel = ?, PaddleCount = 0, PedalStatus = 1
+                       WHERE BoatId = ?""",
+                       color, owner_id, passenger_count, body_status, full_fuel, boat_id)
+        cursor.commit()
+
+class PedalBoat(Boat):
+    RENT_PRICE = 100000
+    LAKE_PRICE = 50000
+
+    def __init__(self, boat_id: int = 0, 
+                 color: str = "", 
+                 owner_id: int = None, 
+                 passenger_count: int = 4, 
+                 body_status: bool = True,
+                 pedal_status: bool = True):
+        super().__init__(boat_id, color, owner_id, passenger_count, body_status)
+        self.pedal_status = pedal_status
+
+    @classmethod
+    def create_new_pedal_boat(cls, color, owner_id, passenger_count, body_status, pedal_status):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus, IsActive)
+                       OUTPUT INSERTED.BoatId
+                       VALUES (?,?,?,?,?,1,0,?,1)""", 2, color, owner_id, passenger_count, body_status, pedal_status)
+        boat_id = int(cursor.fetchval())
+        cursor.commit()
+        return boat_id
+    
+    @classmethod
+    def edit_pedal_boat(cls, boat_id, color, owner_id, passenger_count, body_status, pedal_status):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""UPDATE Boat SET
+                       BoatTypeId = 2, Color = ?, OwnerId = ?, PassengerCount = ?, BodyStatus = ?, FullFuel = 1, PaddleCount = 0, PedalStatus = ?
+                       WHERE BoatId = ?""",
+                       color, owner_id, passenger_count, body_status, pedal_status, boat_id)
+        cursor.commit()
+
+class RowBoat(Boat):
+    RENT_PRICE = 140000
+    LAKE_PRICE = 70000
+
+    def __init__(self, boat_id: int = 0, 
+                 color: str = "", 
+                 owner_id: int = None, 
+                 passenger_count: int = 4, 
+                 body_status: bool = True,
+                 paddle_count: int = 3):
+        super().__init__(boat_id, color, owner_id, passenger_count, body_status)
+        self.paddle_count = paddle_count
+
+    @classmethod
+    def create_new_row_boat(cls, color, owner_id, passenger_count, body_status, paddle_count):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""INSERT INTO Boat (BoatTypeId, Color, OwnerId, PassengerCount, BodyStatus, FullFuel, PaddleCount, PedalStatus, IsActive)
+                       OUTPUT INSERTED.BoatId
+                       VALUES (?,?,?,?,?,1,?,1,1)""", 3, color, owner_id, passenger_count, body_status, paddle_count)
+        boat_id = int(cursor.fetchval())
+        cursor.commit()
+        return boat_id
+
+    @classmethod
+    def edit_row_boat(cls, boat_id, color, owner_id, passenger_count, body_status, paddle_count):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""UPDATE Boat SET
+                       BoatTypeId = 3, Color = ?, OwnerId = ?, PassengerCount = ?, BodyStatus = ?, FullFuel = 1, PaddleCount = ?, PedalStatus = 1
+                       WHERE BoatId = ?""",
+                       color, owner_id, passenger_count, body_status, paddle_count, boat_id)
+        cursor.commit()

@@ -1,8 +1,4 @@
-from Boat import Boat
-from Tourist import Tourist
-from datetime import datetime
-from DatabaseManager import DatabaseManager
-from math import ceil
+from Core import *
 
 class Rent:
     OWNER_SHARE = 0.6
@@ -102,13 +98,10 @@ class Rent:
 
             match boat_type_name:
                 case "موتوری":
-                    from MotorBoat import MotorBoat
                     boat = MotorBoat(boat_id, color, owner_id, passenger_count, body_status, full_fuel)
                 case "پدالی":
-                    from PedalBoat import PedalBoat
                     boat = PedalBoat(boat_id, color, owner_id, passenger_count, body_status, pedal_status)
                 case "پارویی":
-                    from RowBoat import RowBoat
                     boat = RowBoat(boat_id, color, owner_id, passenger_count, body_status, paddle_count)
 
             tourist = Tourist(tourist_id, name, family, mobile)

@@ -1,8 +1,6 @@
-from UI.MainWindow import MainWindow
-from PyQt5.QtWidgets import QApplication
 import sys
-from DatabaseManager import DatabaseManager
-from UI.MessageDialog import MessageDialog
+from Core import *
+from UI import *
 
 app = QApplication(sys.argv)
 try:

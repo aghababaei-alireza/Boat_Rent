@@ -1,16 +1,4 @@
-from UI.Ui_MainWindow import Ui_MainWindow
-from UI.DateTimeDialog import DateTimeDialog
-from UI.MessageDialog import MessageDialog
-from UI.TouristDialog import TouristDialog
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QPushButton, QHeaderView
-from Boat import Boat
-from MotorBoat import MotorBoat
-from PedalBoat import PedalBoat
-from RowBoat import RowBoat
-from Rent import Rent
-from Tourist import Tourist
-from UI.BoatDialog import BoatDialog
-from UI.StatDialog import StatDialog
+from UI import *
 
 class MainWindow(Ui_MainWindow, QMainWindow):
     def __init__(self):

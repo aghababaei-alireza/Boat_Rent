@@ -1,5 +1,4 @@
-from UI.Ui_MessageDialog import Ui_MessageDialog
-from PyQt5.QtWidgets import QDialog
+from UI import *
 
 class MessageDialog(Ui_MessageDialog, QDialog):
     def __init__(self, parent = None, message: str = "", question_mode: bool = False):

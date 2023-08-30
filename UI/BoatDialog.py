@@ -1,11 +1,4 @@
-from UI.Ui_BoatDialog import Ui_BoatDialog
-from PyQt5.QtWidgets import QDialog
-from typing import Literal
-from MotorBoat import MotorBoat
-from PedalBoat import PedalBoat
-from RowBoat import RowBoat
-from Boat import Boat
-from UI.MessageDialog import MessageDialog
+from UI import *
 
 class BoatDialog(Ui_BoatDialog, QDialog):
     def __init__(self, parent = None, mode: Literal['create', 'edit', 'delete'] = 'create', owner_id: int = None):

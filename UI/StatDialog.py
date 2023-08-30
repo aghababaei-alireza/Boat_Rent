@@ -1,12 +1,4 @@
-from UI.Ui_StatDialog import Ui_StatDialog
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QHeaderView
-from datetime import datetime, timedelta
-from Rent import Rent
-from Tourist import Tourist
-from UI.MessageDialog import MessageDialog
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import matplotlib.pyplot as plt
-from typing import Literal
+from UI import *
 
 class StatDialog(Ui_StatDialog, QDialog):
     def __init__(self, parent = None, tourist_id: int = None):

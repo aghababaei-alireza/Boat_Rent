@@ -1,7 +1,4 @@
-from UI.Ui_DateTimeDialog import Ui_DateTimeDialog
-from PyQt5.QtWidgets import QDialog
-from datetime import datetime
-from UI.MessageDialog import MessageDialog
+from UI import *
 
 class DateTimeDialog(Ui_DateTimeDialog, QDialog):
     def __init__(self, parent) -> None:

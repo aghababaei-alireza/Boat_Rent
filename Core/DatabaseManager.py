@@ -1,5 +1,4 @@
-import pyodbc
-from pyodbc import Error
+from Core import *
 
 class DatabaseManager:
     DRIVER = "{SQL SERVER}"
