@@ -76,3 +76,12 @@ class Tourist:
             elif item[4] == 'پارویی':
                 boats.append(RowBoat(boat_id=int(item[3])))
         return Tourist(tourist_id, name, family, mobile, boats)
+    
+    @classmethod
+    def is_tourist_available(cls, tourist_id: int):
+        cursor = DatabaseManager.get_cursor()
+        cursor.execute("""SELECT * FROM Tourist AS T
+                       INNER JOIN Rent AS R ON T.TouristId = R.TouristId
+                       WHERE T.TouristId = ? AND R.ReturnTime IS NULL""",
+                       tourist_id)
+        return not cursor.fetchval()

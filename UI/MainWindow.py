@@ -65,11 +65,14 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         if res == dlg_datetime.Rejected:
             return
         rent = Rent(boat=boat, tourist=Tourist(tourist_id))
-        if rent.start_rent(dt):
-            MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} اجاره شد.").exec()
-            self.update()
-        else:
-            MessageDialog(self, "در حال حاضر ظرفیت دریاچه تکمیل است.").exec()
+        match rent.start_rent(dt):
+            case -1:
+                MessageDialog(self, "در حال حاضر ظرفیت دریاچه تکمیل است.").exec()
+            case -2:
+                MessageDialog(self, "گردشگر مورد نظر در حال حاضر قایق دیگری را اجاره کرده است.").exec()
+            case _:
+                MessageDialog(self, f"قایق با کد {rent.boat.boat_id} توسط گردشگر با کد {rent.tourist.tourist_id} اجاره شد.").exec()
+                self.update()            
 
     def update_rented_boats(self):
         self.rent_items = Rent.get_rented_boats()

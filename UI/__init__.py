@@ -22,7 +22,7 @@ from UI.Ui_TouristDialog import Ui_TouristDialog
 # Form Imports
 from UI.MessageDialog import MessageDialog
 from UI.DateTimeDialog import DateTimeDialog
-from UI.TouristDialog import TouristDialog
 from UI.BoatDialog import BoatDialog
+from UI.TouristDialog import TouristDialog
 from UI.StatDialog import StatDialog
 from UI.MainWindow import MainWindow

@@ -30,7 +30,10 @@ class Rent:
             self.rent_time = rent_time
         
         if Rent.get_rented_boat_count() >= 20:
-            return False
+            return -1
+        
+        if not Tourist.is_tourist_available(self.tourist.tourist_id):
+            return -2
 
         cursor = DatabaseManager.get_cursor()
         cursor.execute("INSERT INTO Rent (BoatId, TouristId, RentTime) OUTPUT INSERTED.RentId VALUES (?, ?, ?)",
@@ -39,7 +42,7 @@ class Rent:
                        self.rent_time.isoformat())
         self.rent_id = int(cursor.fetchval())
         cursor.commit()
-        return True
+        return self.rent_id
 
     def finish_rent(self, return_time):
         if not self.return_time:

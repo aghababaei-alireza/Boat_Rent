@@ -33,6 +33,8 @@ class StatDialog(Ui_StatDialog, QDialog):
         self.spn_day_to.valueChanged.connect(lambda: self.lbl_error.setVisible(False))
 
         self.tbl_income.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
+        self.tbl_income.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
+        self.tbl_income.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
 
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
